@@ -8,6 +8,7 @@ VERSION=0.4.2
 CFLAGS += -DWASP_VERSION='"$(VERSION)"'
 
 STATICLIBS += -levent
+#DYNAMICLIBS += -levent
 
 ifeq ($(ARCH),i686)
 ARCH = x86

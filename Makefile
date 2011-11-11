@@ -18,6 +18,8 @@ WASPVM_OBJS += vm/boolean$(OBJ) vm/channel$(OBJ) vm/closure$(OBJ) vm/connection$
 
 # vm/plugin$(OBJ)  -- Disabled until after 1.0
 
+all: $(WASPDOC_EXE) $(WASP_EXE) $(WASPC_EXE) $(WASPVM_EXE)
+
 LIBWASPVM ?= libwaspvm$(SO)
 
 $(WASPVM_EXE): vm/waspvm$(OBJ) $(WASPVM_OBJS) $(LIBRX)
@@ -46,14 +48,13 @@ $(WASP_EXE): $(WASPC_EXE) $(WASPVM_EXE)
 $(LIBRX):
 	cd rx && make lib
 
-install: $(WASPDOC_EXE) $(WASP_EXE) $(WASPC_EXE) $(WASPVM_EXE)
+install: all
 	cd mod && $(WASP_EXE) bin/install.ms
 
 zip-package: 
 	git archive --format zip --output ../waspwm-$(VERSION).zip master
 
 exe-package: $(WASPDOC_EXE) $(WASP_EXE) $(WASPC_EXE) $(WASPVM_EXE)
-	chmod +x package.sh
 	./package.sh $(PLATFORM) waspvm-$(VERSION)-$(PLATFORM)
 
 debug: $(WASP_EXE)

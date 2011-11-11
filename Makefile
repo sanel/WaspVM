@@ -50,9 +50,10 @@ install: $(WASPDOC_EXE) $(WASP_EXE) $(WASPC_EXE) $(WASPVM_EXE)
 	cd mod && $(WASP_EXE) bin/install.ms
 
 zip-package: 
-	bzr export ../waspvm-$(VERSION).zip 
+	git archive --format zip --output ../waspwm-$(VERSION).zip master
 
 exe-package: $(WASPDOC_EXE) $(WASP_EXE) $(WASPC_EXE) $(WASPVM_EXE)
+	chmod +x package.sh
 	./package.sh $(PLATFORM) waspvm-$(VERSION)-$(PLATFORM)
 
 debug: $(WASP_EXE)
